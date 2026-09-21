@@ -106,7 +106,6 @@
     </header>
 
     <main>
-        <!-- BADGE COMPTEUR EN DIRECT DE JETONS -->
         <div class="badge-tokens" id="token-badge">
             <span class="point-vert" id="token-point"></span>
             <span id="tokens-text">2 free protections left</span>
@@ -127,14 +126,12 @@
         </div>
     </main>
 
-    <!-- LE PAYWALL BLOQUANT AUTOMATIQUE (ACTIF APRÈS 2 ESSAIS) -->
     <div class="paywall-overlay" id="paywall">
         <div class="paywall-box">
             <h2>🛡️ Free Limits <span>Reached!</span></h2>
             <p class="subtitle">Votre limite d'essai gratuit de 2 fichiers est épuisée. Sélectionnez un abonnement ci-dessous pour débloquer la protection illimitée de vos données.</p>
             
             <div class="pricing-grid">
-                <!-- PACK SOLO -->
                 <div class="price-card">
                     <div>
                         <h4>Pack Solo</h4>
@@ -145,11 +142,9 @@
                             <li>✅ Vitesse de calcul standard</li>
                         </ul>
                     </div>
-                    <!-- LIENS DE PAIEMENT SÉCURISÉS ET ACTIFS (Lien de test stripe/paypal standard) -->
                     <a href="https://stripe.com" target="_blank" class="btn-pay">Subscribe Now</a>
                 </div>
 
-                <!-- PACK CREATOR -->
                 <div class="price-card featured">
                     <div>
                         <h4>Pack Creator</h4>
@@ -164,7 +159,6 @@
                     <a href="https://stripe.com" target="_blank" class="btn-pay">Subscribe Now</a>
                 </div>
 
-                <!-- PACK CORPORATE -->
                 <div class="price-card">
                     <div>
                         <h4>Pack Corporate</h4>
@@ -187,5 +181,13 @@
     </footer>
 
     <script>
-        // ROBOT DE VÉRIFICATION DES JETONS DE COMPTE
-        let jetons = localStorage.getItem("immunia_tokens_v4");
+        // SYSTEME DE SÉCURITÉ DE SESSION ULTRA-STABLE (ZÉRO PLANSTAGE)
+        let jetons = sessionStorage.getItem("session_tokens");
+        if (jetons === null) {
+            sessionStorage.setItem("session_tokens", "2");
+            jetons = 2;
+        } else {
+            jetons = parseInt(jetons);
+        }
+
+        function rafraichirInterface() {
