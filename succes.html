@@ -1,0 +1,61 @@
+    <style>
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh; text-align: center;
+        }
+        .box {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid #3b82f6;
+            padding: 40px; border-radius: 20px;
+            max-width: 500px; margin: 20px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+        h1 { color: #60a5fa; font-size: 28px; margin-bottom: 20px; }
+        p { color: #94a3b8; font-size: 15px; line-height: 1.6; }
+        .btn-download {
+            display: inline-block; margin-top: 20px; padding: 14px 28px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white; text-decoration: none; border-radius: 12px;
+            font-weight: bold; font-size: 15px; text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-download:hover { transform: translateY(-1px); opacity: 0.95; }
+        .btn-retour {
+            display: inline-block; margin-top: 15px; padding: 10px 20px;
+            background: transparent; color: #64748b; text-decoration: none; 
+            font-size: 13px; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🛡️ Protocole d'Armure Activé !</h1>
+        <p>Le traitement est terminé. L'armure adversariale de protection ainsi que la signature souveraine C2PA ont été injectées au cœur de votre fichier.</p>
+        <div id="download-container"></div>
+        <br>
+        <a href="index.html" class="btn-retour">Sécuriser un autre fichier</a>
+    </div>
+
+    <script>
+        const fileData = sessionStorage.getItem("protected_file_data");
+        const fileName = sessionStorage.getItem("protected_file_name") || "protected_identity.media";
+        const container = document.getElementById("download-container");
+
+        if (fileData) {
+            const downloadBtn = document.createElement("a");
+            downloadBtn.href = fileData;
+            downloadBtn.download = "immunia_" + fileName;
+            downloadBtn.className = "btn-download";
+            downloadBtn.innerText = "📥 Download Protected File";
+            container.appendChild(downloadBtn);
+        } else {
+            container.innerHTML = "<p style='color:#ef4444;'>Flux introuvable. Veuillez réessayer.</p>";
+        }
+    </script>
+</body>
+</html>
