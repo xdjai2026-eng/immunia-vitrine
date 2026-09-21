@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Validé - Immunia.ai</title>
     <style>
         body {
             background-color: #020617;
@@ -30,20 +36,47 @@
             background: transparent; color: #64748b; text-decoration: none; 
             font-size: 13px; font-weight: 600;
         }
+        
+        /* GRILLE DE PRIX EN DOLLARS */
+        .pricing-section { margin-top: 30px; border-top: 1px solid #1e293b; padding-top: 25px; }
+        .pricing-title { font-size: 14px; color: #e2e8f0; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
+        .price-card { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 15px; margin-bottom: 10px; text-align: left; }
+        .price-card h4 { margin: 0 0 5px 0; color: white; font-size: 16px; }
+        .price-card .cost { font-size: 18px; font-weight: bold; color: #60a5fa; }
     </style>
 </head>
 <body>
     <div class="box">
         <h1>🛡️ Protocole d'Armure Activé !</h1>
-        <p>Le traitement est terminé. L'armure adversariale de protection ainsi que la signature souveraine C2PA ont été injectées au cœur de votre fichier.</p>
+        <p>Le traitement de démonstration est terminé. L'armure adversariale ainsi que la signature souveraine C2PA ont été appliquées au cœur de votre fichier.</p>
+        
+        <!-- ZONE DU BOUTON VERT DE TÉLÉCHARGEMENT -->
         <div id="download-container"></div>
+        
+        <!-- AFFICHAGE DIRECT DES TARIFS EN DOLLARS POUR LES PROCHAINS ESSAIS -->
+        <div class="pricing-section">
+            <div class="pricing-title">🔒 Grille Tarifaire Premium (Abonnements $)</div>
+            <div class="price-card">
+                <h4>Pack Solo</h4>
+                <div class="cost">$14.99 <span>/ month (30 files)</span></div>
+            </div>
+            <div class="price-card" style="border-color: #6366f1;">
+                <h4>Pack Creator (Popular)</h4>
+                <div class="cost">$39.99 <span>/ month (Unlimited)</span></div>
+            </div>
+            <div class="price-card">
+                <h4>Pack Corporate</h4>
+                <div class="cost">$199.99 <span>/ month (API Access)</span></div>
+            </div>
+        </div>
+        
         <br>
         <a href="index.html" class="btn-retour">Sécuriser un autre fichier</a>
     </div>
 
     <script>
-        const fileData = sessionStorage.getItem("protected_file_data");
-        const fileName = sessionStorage.getItem("protected_file_name") || "protected_identity.media";
+        const fileData = sessionStorage.getItem("saved_file_data");
+        const fileName = sessionStorage.getItem("saved_file_name") || "protected_identity.media";
         const container = document.getElementById("download-container");
 
         if (fileData) {
@@ -54,7 +87,7 @@
             downloadBtn.innerText = "📥 Download Protected File";
             container.appendChild(downloadBtn);
         } else {
-            container.innerHTML = "<p style='color:#ef4444;'>Flux introuvable. Veuillez réessayer.</p>";
+            container.innerHTML = "<p style='color:#ef4444;'>Aucun fichier en mémoire.</p>";
         }
     </script>
 </body>
