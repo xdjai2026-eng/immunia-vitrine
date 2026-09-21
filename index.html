@@ -23,7 +23,7 @@
             background-color: rgba(59, 130, 246, 0.1); color: #60a5fa;
             border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 9999px; text-transform: uppercase;
         }
-        main { width: 100%; max-width: 1100px; padding: 40px 20px; text-align: center; box-sizing: border-box; }
+        main { width: 100%; max-width: 1100px; padding: 40px 20px; text-align: center; box-sizing: border-box; flex-grow: 1; }
         
         .badge-tokens {
             display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 9999px;
@@ -58,7 +58,26 @@
         }
         button:hover { opacity: 0.95; transform: translateY(-1px); }
 
-        /* ÉCRAN BLOQUANT DE L'ABONNEMENT (PAYWALL) */
+        /* DOUBLE INTERFACES EN UNE SEULE PAGE */
+        #success-container { display: none; }
+        
+        .box-success {
+            background-color: rgba(15, 23, 42, 0.6); border: 1px solid #10b981; padding: 40px;
+            border-radius: 20px; max-width: 500px; margin: 40px auto; box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+        }
+        .box-success h2 { color: #10b981; font-size: 26px; margin-top: 0; }
+
+        .btn-download {
+            display: inline-block; margin-top: 20px; padding: 14px 28px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white; text-decoration: none; border-radius: 12px;
+            font-weight: bold; font-size: 15px; text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: all 0.2s ease;
+        }
+        .btn-download:hover { transform: translateY(-1px); opacity: 0.95; }
+        .btn-reset { display: inline-block; margin-top: 20px; color: #64748b; text-decoration: none; font-size: 13px; cursor: pointer; }
+
+        /* BLOCAGE DE L'ABONNEMENT (PAYWALL) */
         .paywall-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(2, 6, 23, 0.97); z-index: 9999; justify-content: center; align-items: center;
@@ -78,24 +97,15 @@
             background-color: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 16px;
             padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: space-between;
         }
-        .price-card.featured { border-color: #10b981; background-color: rgba(16, 185, 129, 0.03); }
         .price-card h4 { font-size: 18px; margin: 0 0 10px 0; color: white; font-weight: 800; }
         .price-card .cost { font-size: 28px; font-weight: 900; color: #60a5fa; margin-bottom: 15px; }
-        .price-card .cost span { font-size: 14px; color: #64748b; font-weight: normal; }
         .price-card ul { list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 13px; color: #94a3b8; }
-        .price-card ul li { margin-bottom: 8px; }
-        
         .btn-pay {
             display: block; width: 100%; text-align: center; padding: 14px;
             background: linear-gradient(90deg, #2563eb, #4f46e5); color: white;
-            border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 13px;
-            text-transform: uppercase; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
-            transition: all 0.2s ease; box-sizing: border-box;
+            border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 13px; text-transform: uppercase;
         }
-        .price-card.featured .btn-pay { background: linear-gradient(90deg, #10b981, #059669); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
-        .btn-pay:hover { transform: translateY(-1px); opacity: 0.95; }
-
-        footer { width: 100%; border-top: 1px solid #0f172a; padding: 30px; text-align: center; font-size: 12px; color: #334155; margin-top: 60px; }
+        footer { width: 100%; border-top: 1px solid #0f172a; padding: 30px; text-align: center; font-size: 12px; color: #334155; }
     </style>
 </head>
 <body>
@@ -105,7 +115,8 @@
         <div class="badge-top">ZIPPA GROUP - Division Cyber</div>
     </header>
 
-    <main>
+    <!-- ZONE DE L'INTERFACE PRINCIPALE FORMULAIRE -->
+    <main id="main-interface">
         <div class="badge-tokens" id="token-badge">
             <span class="point-vert" id="token-point"></span>
             <span id="tokens-text">2 free protections left</span>
@@ -118,7 +129,7 @@
             <h3>Sécurisez votre premier fichier</h3>
             <p>Déposez votre photo ou vidéo pour injecter le bouclier Immunia.</p>
             
-            <form id="immunia-intelligent-form">
+            <form id="immunia-single-page-form">
                 <input type="email" required placeholder="Votre adresse e-mail">
                 <input type="file" id="media-file" required>
                 <button type="submit" id="btn-submit">Activer mon bouclier Immunia</button>
@@ -126,51 +137,40 @@
         </div>
     </main>
 
+    <!-- ZONE DE L'INTERFACE DE SUCCÈS (MASQUÉE PAR DÉFAUT) -->
+    <main id="success-container">
+        <div class="box-success">
+            <h2>🛡️ Protocole d'Armure Activé !</h2>
+            <p>Le traitement est terminé. L'armure adversariale ainsi que la signature souveraine C2PA ont été injectées au cœur de votre fichier.</p>
+            
+            <div id="download-button-wrapper"></div>
+            
+            <br>
+            <div class="btn-reset" onclick="revenirAccueil()">Sécuriser un autre fichier</div>
+        </div>
+    </main>
+
+    <!-- ZONE DU BLOCAGE ABONNEMENT -->
     <div class="paywall-overlay" id="paywall">
         <div class="paywall-box">
             <h2>🛡️ Free Limits <span>Reached!</span></h2>
-            <p class="subtitle">Votre limite d'essai gratuit de 2 fichiers est épuisée. Sélectionnez un abonnement ci-dessous pour débloquer la protection illimitée de vos données.</p>
-            
+            <p class="subtitle">Votre limite d'essai gratuit est épuisée. Sélectionnez un abonnement ci-dessous pour débloquer la protection illimitée.</p>
             <div class="pricing-grid">
                 <div class="price-card">
                     <div>
                         <h4>Pack Solo</h4>
                         <div class="cost">$14.99 <span>/ month</span></div>
-                        <ul>
-                            <li>✅ 30 fichiers sécurisés / mois</li>
-                            <li>✅ Protection Photo & Audio</li>
-                            <li>✅ Vitesse de calcul standard</li>
-                        </ul>
+                        <ul><li>✅ 30 fichiers sécurisés / mois</li></ul>
                     </div>
                     <a href="https://stripe.com" target="_blank" class="btn-pay">Subscribe Now</a>
                 </div>
-
-                <div class="price-card featured">
+                <div class="price-card" style="border-color: #10b981;">
                     <div>
                         <h4>Pack Creator</h4>
                         <div class="cost">$39.99 <span>/ month</span></div>
-                        <ul>
-                            <li>✅ Fichiers & Médias illimités</li>
-                            <li>✅ Protection Vidéo HD active</li>
-                            <li>✅ Signature cryptographique C2PA</li>
-                            <li>✅ Priorité sur les cartes graphiques</li>
-                        </ul>
+                        <ul><li>✅ Fichiers illimités</li><li>✅ Vidéo HD active</li></ul>
                     </div>
-                    <a href="https://stripe.com" target="_blank" class="btn-pay">Subscribe Now</a>
-                </div>
-
-                <div class="price-card">
-                    <div>
-                        <h4>Pack Corporate</h4>
-                        <div class="cost">$199.99 <span>/ month</span></div>
-                        <ul>
-                            <li>✅ Intégration API pour Entreprises</li>
-                            <li>✅ Licences collaborateurs illimitées</li>
-                            <li>✅ Certificat ZIPPA GROUP personnalisé</li>
-                            <li>✅ Support technique prioritaire 24/7</li>
-                        </ul>
-                    </div>
-                    <a href="mailto:contact@://zippagroup.com API Immunia" class="btn-pay" style="background: #334155;">Contact Sales</a>
+                    <a href="https://stripe.com" target="_blank" class="btn-pay" style="background: linear-gradient(90deg, #10b981, #059669);">Subscribe Now</a>
                 </div>
             </div>
         </div>
@@ -181,13 +181,11 @@
     </footer>
 
     <script>
-        // SYSTEME DE SÉCURITÉ DE SESSION ULTRA-STABLE (ZÉRO PLANSTAGE)
-        let jetons = sessionStorage.getItem("session_tokens");
-        if (jetons === null) {
-            sessionStorage.setItem("session_tokens", "2");
-            jetons = 2;
-        } else {
-            jetons = parseInt(jetons);
-        }
+        // COMPTEUR DE JETONS DE NAVIGATION FLUIDE
+        let jetons = 2;
 
         function rafraichirInterface() {
+            const textEl = document.getElementById("tokens-text");
+            if (jetons > 0) {
+                textEl.innerText = `${jetons} free protection${jetons > 1 ? 's' : ''} left`;
+            } else {
