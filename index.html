@@ -478,35 +478,24 @@
      0. CONFIGURATION — ZONE UNIQUE À MODIFIER AVANT MISE EN PRODUCTION
      ======================================================================
 
-     BACKEND — adresses fournies le 22/09 :
-       - Base   : https://dep-daop8ldg1s2.onrender.com
-       - POST   : base + /api/protect
-       - Statut : base + /api/status/ + prediction_id
+     BACKEND — confirmé le 22/09 via une capture d'écran des logs de
+     déploiement Render (source de vérité, pas une adresse retapée à la
+     main) : le service "immunia-backend" est live et annonce lui-même
+     "Available at your primary URL https://immunia-backend.onrender.com".
 
-     ⚠️ Le message qui a fourni ces routes les décrivait en toutes lettres
-     ("l'adresse de base suivie de /api/protect", etc.) mais la chaîne
-     donnée comme "exacte" juste en dessous était encore littéralement
-     "https://onrender.com" (et "https://onrender.com{prediction_id}") —
-     soit le même domaine racine, sans sous-domaine ni chemin /api/..., que
-     la fois précédente. Ce n'est pas l'adresse de base fournie au point 1.
-     J'ai construit les URLs ci-dessous à partir de la DESCRIPTION (base +
-     chemin), pas de cette chaîne littérale : l'utiliser telle quelle
-     aurait reproduit exactement le même bug (requêtes vers le mauvais
-     domaine, échec garanti). Si la route réelle diffère, il suffit de
-     corriger CREATE_PREDICTION_PATH / STATUS_PATH_PREFIX ci-dessous.
-
-     Mise à jour du 22/09 (soir) : le message le plus récent a de nouveau
-     donné "https://onrender.com" comme constante "stricte et exacte" pour
-     BACKEND_URL (3e fois avec ce même domaine racine incomplet). Les
-     valeurs ci-dessous n'ont donc pas changé — elles reprennent le seul
-     sous-domaine réel confirmé jusqu'ici (dep-daop8ldg1s2). Si ce n'est
-     plus la bonne adresse, il n'y a qu'une ligne à corriger : BACKEND_BASE_URL.
+     Les tours précédents utilisaient "dep-daop8ldg1s2.onrender.com", qui
+     N'EST PAS cette adresse — d'où le "Failed to fetch" permanent : ce
+     n'était ni du CORS ni un cold start, juste le mauvais nom de domaine.
+     Corrigé ci-dessous. Si ce service est un jour recréé/renommé sur
+     Render, son URL peut changer : il suffit de corriger la ligne
+     BACKEND_BASE_URL avec la nouvelle adresse "Available at your primary
+     URL" visible dans Render → immunia-backend → Logs.
      ====================================================================== */
   var CONFIG = {
     FREE_TRIAL_LIMIT: 2,
     STORAGE_KEY: 'immunia_trial_state_v1',
 
-    BACKEND_BASE_URL: 'https://dep-daop8ldg1s2.onrender.com',
+    BACKEND_BASE_URL: 'https://immunia-backend.onrender.com',
     CREATE_PREDICTION_PATH: '/api/protect',
     STATUS_PATH_PREFIX: '/api/status/',
     buildCreateUrl: function () {
