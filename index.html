@@ -1,800 +1,193 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Immunia.ai — Bouclier numérique | ZIPPA GROUP</title>
-<meta name="description" content="Immunia.ai par ZIPPA GROUP — activez votre bouclier de protection de fichiers en quelques secondes.">
-<style>
-  :root{
-    --bg:#0a0f14;
-    --bg-elevated:#101822;
-    --bg-card:#131d29;
-    --border:#1f2c3a;
-    --text:#eaf2f7;
-    --text-muted:#8fa3b3;
-    --accent:#22c55e;
-    --accent-strong:#16a34a;
-    --accent-2:#38bdf8;
-    --danger:#f87171;
-    --radius:14px;
-    --shadow:0 20px 60px rgba(0,0,0,0.45);
-    --maxw:520px;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:radial-gradient(1200px 600px at 50% -10%, #10202c 0%, var(--bg) 55%);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:32px 16px 64px;
-  }
-  [hidden]{display:none !important;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immunia.ai - L'Armure Totale de Votre Identité Numérique facing AI</title>
+    <style>
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            width: 100%; max-width: 1000px; padding: 30px 20px;
+            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
+        }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: #3b82f6; }
+        .badge-top {
+            padding: 6px 16px; font-size: 12px; font-weight: 600;
+            background-color: rgba(59, 130, 246, 0.1); color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 9999px; text-transform: uppercase;
+        }
+        main { width: 100%; max-width: 1100px; padding: 40px 20px; text-align: center; box-sizing: border-box; }
+        
+        .badge-tokens {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 9999px;
+            background-color: #1e1b4b; border: 1px solid #4338ca; font-size: 14px; color: #a5b4fc; margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .point-vert { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .point-rouge { width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; }
 
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:28px;
-    color:var(--text-muted);
-    font-size:14px;
-    letter-spacing:.03em;
-  }
-  .brand strong{color:var(--text);font-size:16px;}
+        h1 { font-size: 44px; font-weight: 800; line-height: 1.2; margin: 0 0 24px 0; }
+        h1 span { color: #60a5fa; }
+        p.description { font-size: 18px; color: #94a3b8; line-height: 1.6; max-width: 600px; margin: 0 auto 40px auto; }
+        
+        .box-action {
+            background-color: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; padding: 40px;
+            border-radius: 20px; max-width: 500px; margin: 0 auto; box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+        }
+        .box-action h3 { font-size: 22px; margin: 0 0 10px 0; font-weight: 700; }
+        .box-action p { font-size: 14px; color: #64748b; margin: 0 0 24px 0; }
+        
+        input[type="email"], input[type="file"] {
+            width: 100%; padding: 14px; background-color: #020617; border: 1px solid #334155;
+            border-radius: 12px; color: white; font-size: 14px; box-sizing: border-box; margin-bottom: 16px; text-align: center;
+        }
+        input[type="file"] { background-color: #0f172a; cursor: pointer; padding: 10px; }
+        
+        button {
+            width: 100%; padding: 16px; background: linear-gradient(90deg, #2563eb, #4f46e5);
+            color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+        button:hover { opacity: 0.95; transform: translateY(-1px); }
 
-  .app-shell{
-    width:100%;
-    max-width:var(--maxw);
-  }
-
-  .screen{
-    background:linear-gradient(180deg, var(--bg-elevated), var(--bg-card));
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:32px 28px;
-    text-align:center;
-  }
-
-  .shield-badge{
-    width:64px;height:64px;
-    margin:0 auto 18px;
-    border-radius:16px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:30px;
-    background:linear-gradient(135deg, rgba(34,197,94,.18), rgba(56,189,248,.14));
-    border:1px solid rgba(34,197,94,.35);
-  }
-
-  h1{font-size:22px;margin:0 0 8px;}
-  .subtitle{color:var(--text-muted);font-size:14px;line-height:1.5;margin:0 0 22px;}
-
-  .trial-pill{
-    display:inline-block;
-    font-size:12.5px;
-    padding:6px 12px;
-    border-radius:999px;
-    background:rgba(56,189,248,.10);
-    border:1px solid rgba(56,189,248,.30);
-    color:var(--accent-2);
-    margin-bottom:20px;
-  }
-  .trial-pill.depleted{
-    background:rgba(248,113,113,.10);
-    border-color:rgba(248,113,113,.30);
-    color:var(--danger);
-  }
-
-  form{text-align:left;}
-  label{
-    display:block;
-    font-size:12.5px;
-    color:var(--text-muted);
-    margin:0 0 6px;
-  }
-  .field{margin-bottom:16px;}
-  input[type="text"],
-  input[type="email"]{
-    width:100%;
-    background:#0c141c;
-    border:1px solid var(--border);
-    color:var(--text);
-    border-radius:10px;
-    padding:12px 14px;
-    font-size:14.5px;
-    outline:none;
-    transition:border-color .15s ease, box-shadow .15s ease;
-  }
-  input[type="text"]:focus,
-  input[type="email"]:focus{
-    border-color:var(--accent-2);
-    box-shadow:0 0 0 3px rgba(56,189,248,.15);
-  }
-
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    width:100%;
-    border:none;
-    border-radius:10px;
-    padding:14px 18px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    transition:transform .08s ease, opacity .15s ease, filter .15s ease;
-  }
-  .btn:active{transform:scale(0.98);}
-  .btn:disabled{cursor:not-allowed;opacity:.72;}
-
-  .btn-primary{
-    background:linear-gradient(135deg, var(--accent), var(--accent-strong));
-    color:#03150a;
-    margin-top:6px;
-    box-shadow:0 10px 24px rgba(34,197,94,.25);
-  }
-  .btn-primary:hover:not(:disabled){filter:brightness(1.06);}
-
-  .btn-download{
-    background:linear-gradient(135deg,#22c55e,#15803d);
-    color:#03150a;
-    box-shadow:0 10px 24px rgba(34,197,94,.28);
-    margin-bottom:12px;
-  }
-  .btn-download:hover{filter:brightness(1.06);}
-
-  .btn-secondary{
-    background:transparent;
-    color:var(--text-muted);
-    border:1px solid var(--border);
-  }
-  .btn-secondary:hover{color:var(--text);border-color:#33465a;}
-
-  .inline-error{
-    margin-top:14px;
-    font-size:13px;
-    color:var(--danger);
-    background:rgba(248,113,113,.08);
-    border:1px solid rgba(248,113,113,.25);
-    border-radius:8px;
-    padding:10px 12px;
-    text-align:left;
-  }
-
-  .success-icon{
-    width:64px;height:64px;
-    margin:0 auto 18px;
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-size:30px;
-    background:rgba(34,197,94,.14);
-    border:1px solid rgba(34,197,94,.35);
-  }
-  .trial-used{color:var(--text-muted);font-size:13px;margin:-8px 0 22px;}
-
-  footer{
-    margin-top:28px;
-    color:var(--text-muted);
-    font-size:12.5px;
-    text-align:center;
-  }
-
-  /* ---------- Paywall modal ---------- */
-  .paywall-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(4,8,12,.72);
-    backdrop-filter:blur(3px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:999;
-  }
-  .paywall-modal{
-    position:relative;
-    width:100%;
-    max-width:860px;
-    max-height:90vh;
-    overflow-y:auto;
-    background:linear-gradient(180deg, var(--bg-elevated), #0d1520);
-    border:1px solid var(--border);
-    border-radius:18px;
-    box-shadow:var(--shadow);
-    padding:36px 30px;
-    text-align:center;
-  }
-  .paywall-close{
-    position:absolute;
-    top:14px;right:14px;
-    width:34px;height:34px;
-    border-radius:50%;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.03);
-    color:var(--text-muted);
-    font-size:18px;
-    line-height:1;
-    cursor:pointer;
-  }
-  .paywall-close:hover{color:var(--text);border-color:#33465a;}
-
-  .paywall-modal h2{font-size:21px;margin:6px 0 6px;}
-  .paywall-modal p.lede{color:var(--text-muted);font-size:14px;margin:0 0 28px;}
-
-  .pricing-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:16px;
-    text-align:left;
-  }
-  .price-card{
-    background:var(--bg-card);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:22px 18px;
-    display:flex;
-    flex-direction:column;
-  }
-  .price-card.featured{
-    border-color:rgba(34,197,94,.5);
-    box-shadow:0 0 0 1px rgba(34,197,94,.25), 0 16px 30px rgba(34,197,94,.12);
-    position:relative;
-  }
-  .price-card.featured::before{
-    content:"⭐ Populaire";
-    position:absolute;
-    top:-11px;left:50%;
-    transform:translateX(-50%);
-    background:var(--accent);
-    color:#03150a;
-    font-size:11px;
-    font-weight:700;
-    padding:3px 10px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
-  .price-card h3{margin:4px 0 2px;font-size:15px;color:var(--text);}
-  .price-card .price{font-size:26px;font-weight:700;margin:6px 0 14px;}
-  .price-card .price span{font-size:13px;font-weight:500;color:var(--text-muted);}
-  .price-card ul{list-style:none;margin:0 0 18px;padding:0;flex:1;}
-  .price-card li{
-    font-size:12.5px;
-    color:var(--text-muted);
-    padding:5px 0;
-    display:flex;
-    gap:6px;
-  }
-  .price-card li::before{content:"✓";color:var(--accent);font-weight:700;}
-  .btn-buy{
-    display:block;
-    text-align:center;
-    background:linear-gradient(135deg, var(--accent), var(--accent-strong));
-    color:#03150a;
-    font-weight:600;
-    font-size:13.5px;
-    padding:11px 14px;
-    border-radius:9px;
-    text-decoration:none;
-  }
-  .btn-buy:hover{filter:brightness(1.06);}
-  .price-card:not(.featured) .btn-buy{
-    background:transparent;
-    border:1px solid var(--border);
-    color:var(--text);
-  }
-
-  @media (max-width:680px){
-    .pricing-grid{grid-template-columns:1fr;}
-    .paywall-modal{padding:28px 18px;}
-  }
-</style>
+        .paywall-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(2, 6, 23, 0.97); z-index: 9999; justify-content: center; align-items: center;
+            overflow-y: auto; padding: 40px 0;
+        }
+        .paywall-box {
+            background-color: #0f172a; border: 2px solid #3b82f6; border-radius: 24px;
+            padding: 40px; max-width: 900px; width: 90%; text-align: center;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+        }
+        .paywall-box h2 { font-size: 32px; color: #ffffff; margin-top: 0; font-weight: 900; }
+        .paywall-box h2 span { color: #ef4444; }
+        .paywall-box p.subtitle { color: #94a3b8; font-size: 16px; margin-bottom: 35px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .price-card {
+            background-color: rgba(30, 41, 59, 0.5); border: 1px solid #334155; border-radius: 16px;
+            padding: 25px; text-align: left; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .price-card h4 { font-size: 18px; margin: 0 0 10px 0; color: white; font-weight: 800; }
+        .price-card .cost { font-size: 28px; font-weight: 900; color: #60a5fa; margin-bottom: 15px; }
+        .btn-pay {
+            display: block; width: 100%; text-align: center; padding: 14px;
+            background: linear-gradient(90deg, #2563eb, #4f46e5); color: white;
+            border-radius: 10px; font-weight: bold; text-decoration: none; font-size: 13px; text-transform: uppercase;
+        }
+        footer { width: 100%; border-top: 1px solid #0f172a; padding: 30px; text-align: center; font-size: 12px; color: #334155; }
+    </style>
 </head>
 <body>
 
-  <div class="brand">🛡️ <strong>Immunia.ai</strong>&nbsp;· ZIPPA GROUP</div>
+    <header>
+        <div class="logo">IMMUNIA.AI</div>
+        <div class="badge-top">ZIPPA GROUP - Division Cyber</div>
+    </header>
 
-  <div class="app-shell">
-
-    <!-- ===================== SCREEN 1 : FORMULAIRE ===================== -->
-    <main id="screen-form" class="screen">
-      <div class="shield-badge">🛡️</div>
-      <h1>Activez votre bouclier</h1>
-      <p class="subtitle">Protégez votre fichier en quelques secondes grâce au chiffrement Immunia.</p>
-
-      <span id="trialsRemainingText" class="trial-pill">…</span>
-
-      <form id="shieldForm" onsubmit="return false;" novalidate>
-        <div class="field">
-          <label for="fullName">Nom complet</label>
-          <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" required>
-        </div>
-        <div class="field">
-          <label for="email">Adresse e-mail</label>
-          <input type="email" id="email" name="email" placeholder="jane@exemple.com" required>
+    <main>
+        <div class="badge-tokens" id="token-badge">
+            <span class="point-vert" id="token-point"></span>
+            <span id="tokens-text">2 free protections left</span>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn btn-primary">
-          <span class="btn-label">🛡️ Activer mon bouclier</span>
-        </button>
+        <h1>L’Armure Totale de Votre<br><span>Identité Numérique</span> face à l'IA</h1>
+        <p class="description">Protégez instantanément votre voix, vos photos et vos vidéos. Un bouclier universel opéré par ZIPPA GROUP.</p>
 
-        <div id="inlineError" class="inline-error" hidden></div>
-      </form>
+        <div class="box-action">
+            <h3>Sécurisez votre premier fichier</h3>
+            <p>Déposez votre photo ou vidéo pour injecter le bouclier Immunia.</p>
+            
+            <form id="immunia-intelligent-form">
+                <input type="email" required placeholder="Votre adresse e-mail">
+                <input type="file" id="media-file" accept="image/*,video/*,audio/*" required>
+                <button type="submit" id="btn-submit">Activer mon bouclier Immunia</button>
+            </form>
+        </div>
     </main>
 
-    <!-- ===================== SCREEN 2 : SUCCÈS ===================== -->
-    <section id="screen-success" class="screen" hidden>
-      <div class="success-icon">✅</div>
-      <h1>Fichier protégé avec succès</h1>
-      <p class="trial-used">Essai <span id="trialUsedNumber">1</span>/2 utilisé</p>
-
-      <a id="downloadBtn" class="btn btn-download" href="#" download>📥 Download Protected File</a>
-      <button type="button" id="restartBtn" class="btn btn-secondary">🔄 Protéger un autre fichier</button>
-    </section>
-
-    <footer>© ZIPPA GROUP — Immunia.ai. Tous droits réservés.</footer>
-  </div>
-
-  <!-- ===================== PAYWALL (modale bloquante) ===================== -->
-  <div id="paywallOverlay" class="paywall-overlay" hidden>
-    <div class="paywall-modal" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
-      <button type="button" id="paywallClose" class="paywall-close" aria-label="Fermer">×</button>
-
-      <div class="shield-badge">🔒</div>
-      <h2 id="paywallTitle">Vous avez utilisé vos 2 essais gratuits</h2>
-      <p class="lede">Passez à un forfait Immunia pour une protection illimitée de vos fichiers.</p>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <h3>Starter</h3>
-          <div class="price">$14.99<span>/mo</span></div>
-          <ul>
-            <li>10 fichiers protégés / mois</li>
-            <li>Chiffrement AES-256</li>
-            <li>Support par e-mail</li>
-          </ul>
-          <a class="btn-buy" id="buyStarter" href="#" target="_blank" rel="noopener noreferrer">Choisir Starter</a>
+    <!-- LES FORMULES EN DOLLARS -->
+    <div class="paywall-overlay" id="paywall">
+        <div class="paywall-box">
+            <h2>🛡️ Free Limits <span>Reached!</span></h2>
+            <p class="subtitle">Votre limite d'essai gratuit de 2 fichiers est épuisée. Sélectionnez un abonnement ci-dessous pour débloquer la protection illimitée de vos données.</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div>
+                        <h4>Pack Solo</h4>
+                        <div class="cost">$14.99 <span>/ month</span></div>
+                        <ul><li>✅ 30 fichiers sécurisés / mois</li><li>✅ Protection Photo & Audio</li></ul>
+                    </div>
+                    <a href="https://stripe.com" target="_blank" class="btn-pay">Subscribe Now</a>
+                </div>
+                <div class="price-card" style="border-color: #10b981; background-color: rgba(16, 185, 129, 0.03);">
+                    <div>
+                        <h4>Pack Creator</h4>
+                        <div class="cost">$39.99 <span>/ month</span></div>
+                        <ul><li>✅ Fichiers illimités</li><li>✅ Protection Vidéo HD active</li><li>✅ Signature C2PA</li></ul>
+                    </div>
+                    <a href="https://stripe.com" target="_blank" class="btn-pay" style="background: linear-gradient(90deg, #10b981, #059669);">Subscribe Now</a>
+                </div>
+            </div>
         </div>
-
-        <div class="price-card featured">
-          <h3>Pro</h3>
-          <div class="price">$39.99<span>/mo</span></div>
-          <ul>
-            <li>Fichiers illimités</li>
-            <li>Intégrité renforcée + AES-256</li>
-            <li>Support prioritaire 24/7</li>
-            <li>Historique 90 jours</li>
-          </ul>
-          <a class="btn-buy" id="buyPro" href="#" target="_blank" rel="noopener noreferrer">Choisir Pro</a>
-        </div>
-
-        <div class="price-card">
-          <h3>Business</h3>
-          <div class="price">$199.99<span>/mo</span></div>
-          <ul>
-            <li>Jusqu'à 20 utilisateurs</li>
-            <li>API dédiée</li>
-            <li>SLA 99.9%</li>
-            <li>Account manager dédié</li>
-          </ul>
-          <a class="btn-buy" id="buyBusiness" href="#" target="_blank" rel="noopener noreferrer">Choisir Business</a>
-        </div>
-      </div>
     </div>
-  </div>
 
-<script>
-(function () {
-  'use strict';
+    <footer>&copy; 2026 ZIPPA GROUP. Tous droits réservés.</footer>
 
-  // Empêche une double initialisation si ce script est chargé deux fois.
-  if (window.__immuniaBootStrapped) return;
-  window.__immuniaBootStrapped = true;
-
-  /* ======================================================================
-     0. CONFIGURATION — ZONE UNIQUE À MODIFIER AVANT MISE EN PRODUCTION
-     ====================================================================== */
-  var CONFIG = {
-    FREE_TRIAL_LIMIT: 2,
-    STORAGE_KEY: 'immunia_trial_state_v1',
-
-    // ⚠️ Remplacez par votre vrai fichier protégé.
-    FILE_NAME: 'immunia_protected_file.txt',
-    FILE_MIME: 'application/octet-stream',
-    // ⚠️ Placeholder — remplacez cette chaîne par votre fichier réel encodé en Base64.
-    FILE_BASE64: 'VGhpcyBpcyBhIHBsYWNlaG9sZGVyIGZpbGUgZm9yIEltbXVuaWEuYWkuClJlcGxhY2UgdGhpcyBjb250ZW50IHdpdGggeW91ciByZWFsIHByb3RlY3RlZCBmaWxlIChiYXNlNjQtZW5jb2RlZCkgYmVmb3JlIGdvaW5nIGxpdmUuCi0gWklQUEEgR1JPVVA=',
-
-    // ⚠️ Remplacez par vos vrais liens Stripe Checkout.
-    STRIPE_LINKS: {
-      starter: 'https://buy.stripe.com/REPLACE_WITH_STARTER_LINK',
-      pro: 'https://buy.stripe.com/REPLACE_WITH_PRO_LINK',
-      business: 'https://buy.stripe.com/REPLACE_WITH_BUSINESS_LINK'
-    },
-
-    LOADING_PHASES: [
-      { text: '🔎 Analyse du fichier…', delay: 550 },
-      { text: '🧬 Génération du bouclier…', delay: 850 },
-      { text: '🔐 Chiffrement AES-256…', delay: 700 },
-      { text: '✅ Finalisation…', delay: 450 }
-    ]
-  };
-
-  /* ======================================================================
-     1. STOCKAGE SÉCURISÉ — sessionStorage avec repli en mémoire locale
-        (mode privé, iframe sandboxée, quota dépassé... ne doivent jamais
-        faire planter l'application).
-     ====================================================================== */
-  var memoryFallback = Object.create(null);
-  var storageIsAvailable = (function testSessionStorage() {
-    try {
-      var k = '__immunia_test__';
-      window.sessionStorage.setItem(k, '1');
-      window.sessionStorage.removeItem(k);
-      return true;
-    } catch (err) {
-      return false;
-    }
-  })();
-
-  var SafeStorage = {
-    get: function (key) {
-      try {
-        if (storageIsAvailable) {
-          var raw = window.sessionStorage.getItem(key);
-          return raw === null ? undefined : raw;
+    <script>
+        // CONFIGURATION DU SYSTEME DE JETONS DE SESSION
+        let jetons = sessionStorage.getItem("session_tokens_v5");
+        if (jetons === null) {
+            sessionStorage.setItem("session_tokens_v5", "2");
+            jetons = 2;
+        } else {
+            jetons = parseInt(jetons);
         }
-      } catch (err) {
-        // on bascule silencieusement sur le repli mémoire
-      }
-      return Object.prototype.hasOwnProperty.call(memoryFallback, key) ? memoryFallback[key] : undefined;
-    },
-    set: function (key, value) {
-      try {
-        if (storageIsAvailable) {
-          window.sessionStorage.setItem(key, value);
-          return;
+
+        function rafraichirInterface() {
+            const textEl = document.getElementById("tokens-text");
+            const pointEl = document.getElementById("token-point");
+            const badgeEl = document.getElementById("token-badge");
+            if (jetons > 0) {
+                textEl.innerText = `${jetons} free protection${jetons > 1 ? 's' : ''} left`;
+            } else {
+                textEl.innerText = "Freemium limit reached — Locked";
+                if(pointEl) pointEl.className = "point-rouge";
+                if(badgeEl) { badgeEl.style.backgroundColor = "#451a03"; badgeEl.style.borderColor = "#9a3412"; }
+                document.getElementById("paywall").style.display = "flex";
+            }
         }
-      } catch (err) {
-        // quota dépassé / mode privé : on bascule sur le repli mémoire
-      }
-      memoryFallback[key] = value;
-    }
-  };
 
-  function loadState() {
-    var fallback = { successes: 0 };
-    var raw = SafeStorage.get(CONFIG.STORAGE_KEY);
-    if (!raw) return fallback;
-    try {
-      var parsed = JSON.parse(raw);
-      if (parsed && typeof parsed.successes === 'number' && parsed.successes >= 0) {
-        return parsed;
-      }
-      return fallback;
-    } catch (err) {
-      return fallback; // données corrompues : on repart d'un état propre plutôt que de planter
-    }
-  }
+        window.onload = function() { rafraichirInterface(); };
 
-  function saveState(state) {
-    try {
-      SafeStorage.set(CONFIG.STORAGE_KEY, JSON.stringify(state));
-    } catch (err) {
-      // non bloquant : au pire le compteur repartira à zéro au rechargement
-    }
-  }
+        document.getElementById("immunia-intelligent-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            if (jetons <= 0) {
+                document.getElementById("paywall").style.display = "flex";
+                return;
+            }
 
-  var appState = loadState();
+            const button = document.getElementById("btn-submit");
+            const fileInput = document.getElementById("media-file");
+            
+            button.disabled = true;
+            button.style.background = "#1e293b";
+            button.innerText = "🔌 ENCRYPTING MEDIA FILE...";
 
-  /* ======================================================================
-     2. RÉFÉRENCES DOM
-     ====================================================================== */
-  var els = {
-    form: document.getElementById('shieldForm'),
-    submitBtn: document.getElementById('submitBtn'),
-    btnLabel: document.querySelector('#submitBtn .btn-label'),
-    screenForm: document.getElementById('screen-form'),
-    screenSuccess: document.getElementById('screen-success'),
-    downloadBtn: document.getElementById('downloadBtn'),
-    trialUsedNumber: document.getElementById('trialUsedNumber'),
-    trialsRemainingText: document.getElementById('trialsRemainingText'),
-    restartBtn: document.getElementById('restartBtn'),
-    inlineError: document.getElementById('inlineError'),
-    paywallOverlay: document.getElementById('paywallOverlay'),
-    paywallClose: document.getElementById('paywallClose'),
-    buyStarter: document.getElementById('buyStarter'),
-    buyPro: document.getElementById('buyPro'),
-    buyBusiness: document.getElementById('buyBusiness')
-  };
+            const file = fileInput.files[0];
+            if (!file) return;
 
-  /* ======================================================================
-     3. GESTION DES TIMERS — chaque setTimeout est tracé et peut toujours
-        être annulé : rien ne peut rester bloqué indéfiniment.
-     ====================================================================== */
-  var activeTimeouts = [];
-  var isProcessing = false;
-  var lastObjectUrl = null;
-
-  function clearAllTimeouts() {
-    activeTimeouts.forEach(function (id) { clearTimeout(id); });
-    activeTimeouts = [];
-  }
-
-  function trackTimeout(fn, delay) {
-    var id = setTimeout(function () {
-      activeTimeouts = activeTimeouts.filter(function (t) { return t !== id; });
-      try {
-        fn();
-      } catch (err) {
-        handleFatalProcessingError(err);
-      }
-    }, delay);
-    activeTimeouts.push(id);
-    return id;
-  }
-
-  /* ======================================================================
-     4. AIDES UI
-     ====================================================================== */
-  function setButtonLabel(text) {
-    if (els.btnLabel) els.btnLabel.textContent = text;
-  }
-
-  function setButtonDisabled(disabled) {
-    if (els.submitBtn) els.submitBtn.disabled = disabled;
-  }
-
-  function showInlineError(message) {
-    if (!els.inlineError) return;
-    els.inlineError.textContent = message;
-    els.inlineError.hidden = false;
-  }
-
-  function hideInlineError() {
-    if (!els.inlineError) return;
-    els.inlineError.hidden = true;
-  }
-
-  function resetSubmitButton() {
-    clearAllTimeouts();
-    isProcessing = false;
-    setButtonDisabled(false);
-    setButtonLabel('🛡️ Activer mon bouclier');
-  }
-
-  function handleFatalProcessingError(err) {
-    // Quoi qu'il arrive, l'utilisateur ne doit jamais rester face à un bouton figé.
-    if (window.console && console.error) console.error('[Immunia] Traitement interrompu :', err);
-    resetSubmitButton();
-    showInlineError('Une erreur est survenue pendant le traitement. Merci de réessayer.');
-  }
-
-  function hasFreeTrialsLeft() {
-    return appState.successes < CONFIG.FREE_TRIAL_LIMIT;
-  }
-
-  function updateTrialsRemainingText() {
-    if (!els.trialsRemainingText) return;
-    var remaining = Math.max(0, CONFIG.FREE_TRIAL_LIMIT - appState.successes);
-    if (remaining > 0) {
-      els.trialsRemainingText.textContent = 'Il vous reste ' + remaining + ' essai' + (remaining > 1 ? 's' : '') + ' gratuit' + (remaining > 1 ? 's' : '') + '.';
-      els.trialsRemainingText.classList.remove('depleted');
-    } else {
-      els.trialsRemainingText.textContent = 'Vos essais gratuits sont épuisés.';
-      els.trialsRemainingText.classList.add('depleted');
-    }
-  }
-
-  /* ======================================================================
-     5. BASCULEMENT D'ÉCRANS
-     ====================================================================== */
-  function showScreen(name) {
-    if (els.screenForm) els.screenForm.hidden = (name !== 'form');
-    if (els.screenSuccess) els.screenSuccess.hidden = (name !== 'success');
-  }
-
-  /* ======================================================================
-     6. BASE64 → BLOB (avec repli sécurisé sur une data URI brute)
-     ====================================================================== */
-  function base64ToObjectUrl(base64, mime) {
-    try {
-      var byteChars = atob(base64);
-      var byteNumbers = new Array(byteChars.length);
-      for (var i = 0; i < byteChars.length; i++) {
-        byteNumbers[i] = byteChars.charCodeAt(i);
-      }
-      var byteArray = new Uint8Array(byteNumbers);
-      var blob = new Blob([byteArray], { type: mime });
-      return URL.createObjectURL(blob);
-    } catch (err) {
-      if (window.console && console.warn) {
-        console.warn('[Immunia] Conversion Blob impossible, repli sur une data URI brute.', err);
-      }
-      return 'data:' + mime + ';base64,' + base64;
-    }
-  }
-
-  function injectDownloadFile() {
-    if (!els.downloadBtn) return;
-    try {
-      if (lastObjectUrl && lastObjectUrl.indexOf('blob:') === 0) {
-        URL.revokeObjectURL(lastObjectUrl);
-      }
-    } catch (err) {
-      // non bloquant
-    }
-    var url = base64ToObjectUrl(CONFIG.FILE_BASE64, CONFIG.FILE_MIME);
-    lastObjectUrl = url;
-    els.downloadBtn.setAttribute('href', url);
-    els.downloadBtn.setAttribute('download', CONFIG.FILE_NAME);
-  }
-
-  /* ======================================================================
-     7. PAYWALL (modale bloquante)
-     ====================================================================== */
-  function openPaywall() {
-    resetSubmitButton();
-    if (!els.paywallOverlay) return;
-    els.paywallOverlay.hidden = false;
-    document.body.style.overflow = 'hidden';
-    if (els.paywallClose) {
-      try { els.paywallClose.focus(); } catch (err) { /* non bloquant */ }
-    }
-  }
-
-  function closePaywall() {
-    if (!els.paywallOverlay) return;
-    els.paywallOverlay.hidden = true;
-    document.body.style.overflow = '';
-  }
-
-  function wireStripeLinks() {
-    var map = { buyStarter: 'starter', buyPro: 'pro', buyBusiness: 'business' };
-    Object.keys(map).forEach(function (elKey) {
-      var el = els[elKey];
-      var plan = map[elKey];
-      if (el && CONFIG.STRIPE_LINKS[plan]) {
-        el.setAttribute('href', CONFIG.STRIPE_LINKS[plan]);
-      }
-    });
-  }
-
-  /* ======================================================================
-     8. SÉQUENCE DE CHARGEMENT (setTimeout séquentiels et annulables —
-        aucun blocage asynchrone, aucun appel réseau réel).
-     ====================================================================== */
-  function runLoadingSequence(onDone) {
-    clearAllTimeouts();
-    var stepIndex = 0;
-
-    function nextStep() {
-      if (stepIndex >= CONFIG.LOADING_PHASES.length) {
-        onDone();
-        return;
-      }
-      var phase = CONFIG.LOADING_PHASES[stepIndex];
-      setButtonLabel(phase.text);
-      stepIndex++;
-      trackTimeout(nextStep, phase.delay);
-    }
-
-    nextStep();
-  }
-
-  /* ======================================================================
-     9. SUBMIT — c'est ici qu'était le blocage : le formulaire pouvait
-        déclencher une vraie navigation avant/pendant que le JS s'exécute.
-        preventDefault() est donc TOUJOURS la première instruction.
-     ====================================================================== */
-  function handleSubmit(event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    if (isProcessing) return; // ignore les doubles soumissions accidentelles
-
-    if (!hasFreeTrialsLeft()) {
-      openPaywall(); // 3e tentative (ou plus) → paywall, jamais de traitement
-      return;
-    }
-
-    hideInlineError();
-    isProcessing = true;
-    setButtonDisabled(true);
-
-    try {
-      runLoadingSequence(function onLoadingComplete() {
-        try {
-          appState.successes += 1;
-          saveState(appState);
-
-          if (els.trialUsedNumber) {
-            els.trialUsedNumber.textContent = String(appState.successes);
-          }
-
-          injectDownloadFile();
-          showScreen('success');
-          resetSubmitButton();
-          updateTrialsRemainingText();
-        } catch (err) {
-          handleFatalProcessingError(err);
-        }
-      });
-    } catch (err) {
-      handleFatalProcessingError(err);
-    }
-  }
-
-  /* ======================================================================
-     10. RETOUR AU FORMULAIRE (pour le 2e essai)
-     ====================================================================== */
-  function handleRestart() {
-    // On revient toujours à l'écran formulaire en premier (même s'il finit
-    // recouvert par la paywall juste après) : ainsi le comportement est
-    // identique, que la paywall vienne d'un rechargement de page ou d'un
-    // clic sur "Protéger un autre fichier" — jamais d'utilisateur bloqué
-    // sur l'écran de succès sans bouton pour redéclencher la paywall.
-    showScreen('form');
-    updateTrialsRemainingText();
-
-    if (!hasFreeTrialsLeft()) {
-      openPaywall();
-      return;
-    }
-    hideInlineError();
-  }
-
-  /* ======================================================================
-     11. INITIALISATION
-     ====================================================================== */
-  function init() {
-    if (!els.form) {
-      if (window.console && console.error) console.error('[Immunia] Formulaire introuvable, initialisation annulée.');
-      return;
-    }
-
-    wireStripeLinks();
-
-    els.form.addEventListener('submit', handleSubmit);
-    if (els.restartBtn) els.restartBtn.addEventListener('click', handleRestart);
-    if (els.paywallClose) els.paywallClose.addEventListener('click', closePaywall);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && els.paywallOverlay && !els.paywallOverlay.hidden) {
-        closePaywall();
-      }
-    });
-
-    updateTrialsRemainingText();
-
-    // Constrainte 4 : rechargement de page alors que la limite est déjà atteinte.
-    if (!hasFreeTrialsLeft()) {
-      showScreen('form');
-      openPaywall();
-    }
-
-    // Filet de sécurité ultime : si quoi que ce soit d'imprévu lève une
-    // exception pendant un traitement, le bouton ne reste jamais figé.
-    window.addEventListener('error', function () {
-      if (isProcessing) resetSubmitButton();
-    });
-    window.addEventListener('unhandledrejection', function () {
-      if (isProcessing) resetSubmitButton();
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
-</body>
-</html>
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function () {
+                const base64Data = reader.result;
+                sessionStorage.setItem("protected_file_data", base64Data);
